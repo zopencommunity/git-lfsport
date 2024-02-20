@@ -3,14 +3,7 @@ log.DEV/
 log.STABLE/
 build/
 install/
-afero/
-clipboard/
-go-git/
-gocui/
-lazygit/
-logrus/
-pty/
-xdg/
+git-lfs/
 go/
 go.work*
 wharf_port/
