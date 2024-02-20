@@ -40,6 +40,9 @@ zopen_wharf()
 {
   cd .. && echo ""
   git clone https://github.com/olekukonko/ts.git
+  cd ts
+  git apply ../patches/ts.gopatch
+  cd ..
   
   go work init ./git-lfs ./ts
   wharf ./git-lfs/...

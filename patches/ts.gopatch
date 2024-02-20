@@ -1,0 +1,52 @@
+diff --git a/go.mod b/go.mod
+new file mode 100644
+index 0000000..b437c04
+--- /dev/null
++++ b/go.mod
+@@ -0,0 +1,3 @@
++module github.com/olekukonko/ts
++
++go 1.13
+diff --git a/ts_x.go b/ts_x.go
+index 3b983c9..ee2b9f8 100644
+--- a/ts_x.go
++++ b/ts_x.go
+@@ -1,4 +1,4 @@
+-// +build !windows,!solaris
++// +build !windows,!solaris,!zos
+ 
+ // Copyright 2014 Oleku Konko All rights reserved.
+ // Use of this source code is governed by a MIT
+diff --git a/ts_zos.go b/ts_zos.go
+new file mode 100644
+index 0000000..604e8a3
+--- /dev/null
++++ b/ts_zos.go
+@@ -0,0 +1,27 @@
++// +build zos
++
++// Copyright 2017 Oleku Konko All rights reserved.
++// Use of this source code is governed by a MIT
++// license that can be found in the LICENSE file.
++
++// This module is a Terminal  API for the Go Programming Language.
++// The protocols were written in pure Go and works on windows and unix systems
++package ts
++
++import (
++	"syscall"
++	"golang.org/x/sys/unix"
++)
++
++// Get Windows Size
++func GetSize() (ws Size, err error) {
++	var wsz *unix.Winsize
++	wsz, err = unix.IoctlGetWinsize(syscall.Stdout, TIOCGWINSZ)
++
++	if err != nil {
++		ws = Size{80, 25, 0, 0}
++	} else {
++		ws = Size{wsz.Row, wsz.Col, wsz.Xpixel, wsz.Ypixel}
++	}
++	return ws, err
++}
