@@ -18,6 +18,7 @@ export ZOPEN_CHECK="zopen_check"
 export ZOPEN_CLEAN="zopen_clean"
 export ZOPEN_INSTALL="zopen_install"
 export ZOPEN_COMP=GO
+export ZOPEN_NAME="git-lfs"
 
 zopen_init()
 {
