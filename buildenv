@@ -3,7 +3,7 @@
 GITLFS_VERSION="3.4.1"
 export ZOPEN_STABLE_TAG="v${GITLFS_VERSION}"
 export ZOPEN_STABLE_URL="https://github.com/git-lfs/git-lfs.git"
-export ZOPEN_STABLE_DEPS="comp_go wharf tar gzip"
+export ZOPEN_STABLE_DEPS="comp_go wharf tar gzip make coreutils"
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_CATEGORIES="devops utilities editor"
 
@@ -24,16 +24,17 @@ zopen_init()
   export CGO_ENABLED=0
   export GOBIN=$ZOPEN_INSTALL_DIR/bin
   mkdir -p $ZOPEN_INSTALL_DIR
+  unset CC CXX LDFLAGS LIBS
 }
 
 zopen_build()
 {
-  go build
+  make
 }
 
 zopen_check()
 {
-  go test -count=1
+  make test
 }
 
 zopen_wharf()
@@ -56,7 +57,8 @@ zopen_clean()
 
 zopen_install()
 {
-  go install 
+  mkdir -p "$ZOPEN_INSTALL_DIR/bin"
+  cp -rf bin/git-lfs  "$ZOPEN_INSTALL_DIR/bin/"
 }
 
 zopen_post_install()
@@ -85,9 +87,9 @@ zopen_post_install()
 zopen_check_results()
 {
   chk="$1/$2_check.log"
-  successes=$(egrep "^ok [0-9]" "${chk}" | wc -l | xargs)
+  successes=$(egrep "^ok " "${chk}" | wc -l | xargs)
 
-  failuretests=$(egrep "^not ok [0-9]" "${chk}")
+  failuretests=$(egrep "^not ok " "${chk}")
   failures=$(echo "${failuretests}" | wc -l | xargs)
   totalTests=$((failures+successes))
 
@@ -96,7 +98,7 @@ zopen_check_results()
 cat <<ZZ
 actualFailures:$failures
 totalTests:$totalTests
-expectedFailures:3
+expectedFailures:0
 ZZ
 }
 

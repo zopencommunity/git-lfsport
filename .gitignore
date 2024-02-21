@@ -7,3 +7,5 @@ git-lfs/
 go/
 go.work*
 wharf_port/
+gitlfs-*
+ts/
