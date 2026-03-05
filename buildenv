@@ -1,5 +1,5 @@
 # Update bump details accordingly. Use bump check to confirm.
-# bump: gitlfs-version /GITLFS_VERSION="(.*)"/ https://github.com/git-lfs/git-lfs|semver:*
+# bump: gitlfs-version /GITLFS_VERSION="(.*)"/ git:https://github.com/git-lfs/git-lfs.git|semver:*
 GITLFS_VERSION="3.4.1"
 export ZOPEN_STABLE_TAG="v${GITLFS_VERSION}"
 export ZOPEN_STABLE_URL="https://github.com/git-lfs/git-lfs.git"
