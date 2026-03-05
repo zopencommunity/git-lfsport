@@ -1,6 +1,6 @@
 # Update bump details accordingly. Use bump check to confirm.
 # bump: gitlfs-version /GITLFS_VERSION="(.*)"/ git:https://github.com/git-lfs/git-lfs.git|semver:*
-GITLFS_VERSION="3.4.1"
+GITLFS_VERSION="3.7.1"
 export ZOPEN_STABLE_TAG="v${GITLFS_VERSION}"
 export ZOPEN_STABLE_URL="https://github.com/git-lfs/git-lfs.git"
 export ZOPEN_STABLE_DEPS="check_go wharf tar gzip make coreutils"
@@ -18,7 +18,7 @@ export ZOPEN_CHECK="zopen_check"
 export ZOPEN_CLEAN="zopen_clean"
 export ZOPEN_INSTALL="zopen_install"
 export ZOPEN_COMP=GO
-export ZOPEN_NAME="git-lfs"
+export ZOPEN_PROJECT_NAME="git-lfs"
 
 zopen_init()
 {
@@ -105,5 +105,5 @@ ZZ
 
 zopen_get_version()
 {
-  echo "${GITLFS_VERSION}"
+  bin/git-lfs version | sed 's/^git-lfs\/\([^ ]*\).*/\1/'
 }
